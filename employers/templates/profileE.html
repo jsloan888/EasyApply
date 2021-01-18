@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Easy Apply</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel=”stylesheet” href=”https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css”rel=”nofollow” integrity=”sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm” crossorigin=”anonymous”>    
+</head>
+<body>
+    <div class="nav">
+        <a href="/employerid/home">Profile</a>
+        <p> | </p>
+        <a href="/employerid/Profile">Profile</a>
+        <p> | </p>
+        <a href="/resources">Resources</a>
+        <a href="/logout">Logout</a>
+    </div>
+    <h1>{{employer.company}}'s Profile Page</h1>
+    <div class="subhead">
+        <p># of Employees</p>
+        <p>Corporate HQ Location</p>
+        <p>CSR Engagement</p>
+    </div>
+    <!-- Edit Page Button -->
+    <!-- Add Job Button -->
+    {% if job in jobs %}
+        <!-- SQL all Jobs in Company -->
+        <h2>Jobs</h2>
+            <p>Job 1</p>
+            <p>Job 2</p>
+            <p>Job 3</p>
+    {% endif %}
+</body>
+</html>
