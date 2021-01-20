@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .models import *
+from .models import Applicant, ApplicantManager
 import bcrypt
 
 # Create your views here.
@@ -31,5 +31,35 @@ def register(request):
             password=pw_hash
         )
         request.session['userid'] = new_user.id 
-        return redirect('/wishes')
+        return redirect('/jobs')
     return redirect('/')
+
+def jobs(request):
+    if 'userid' in request.session:
+        context = {
+            'applicant': Applicant.objects.get(id=request.session['userid']),
+            #'all_wishes': Wish.objects.all() CHANGE TO JOBS AVAILABLE
+        }
+        return render(request, 'dashboard.html', context)
+    return redirect("/")
+
+def logout(request):
+    request.session.flush()
+    return redirect("/")
+
+def login(request):
+    user = Applicant.objects.filter(email=request.POST['email'])
+    if user:
+        logged_user = user[0]
+        if bcrypt.checkpw(request.POST['password'].encode(), logged_user.password.encode()):
+            request.session['userid'] = logged_user.id
+            return redirect('/userid/jobs')
+    messages.error(request, "Email not found in database")
+    return redirect('/')
+
+def profile(request):
+    context = {
+        'applicant': Applicant.objects.get(id=request.session['userid']),
+    }
+    return render(request, 'profile.html', context)
+    

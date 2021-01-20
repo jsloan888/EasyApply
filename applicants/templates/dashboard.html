@@ -6,17 +6,20 @@
     <title>Easy Apply</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <link rel=”stylesheet” href=”https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css”rel=”nofollow” integrity=”sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm” crossorigin=”anonymous”>
-</head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"></head>
 <body>
-    <div class="nav">
-        <a href="/userid/home">Profile</a>
-        <p> | </p>
-        <a href="/userid/Profile">Profile</a>
-        <p> | </p>
-        <a href="/resources">Resources</a>
-        <a href="/logout">Logout</a>
-    </div>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="userid/jobs">EasyApply</a>
+          </div>
+          <ul class="nav navbar-nav">
+            <li><a href="userid/profile">Profile</a></li>
+            <li><a href="resources">Resources</a></li>
+            <li><a href="logout">Logout</a></li>
+          </ul>
+        </div>
+    </nav>
     <h1>View your matched jobs below. Apply Now!</h1>
     {% if jobs %}
         {% for job in Jobs %}
