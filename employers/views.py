@@ -10,7 +10,7 @@ def indexE(request):
 def SignUp(request):
     return render(request, "signUpE.html")
 
-def register(request):
+def registerE(request):
     if request.method == "POST":
         errors = Employer.objects.basic_validator(request.POST)
     if Employer.objects.filter(email = request.POST['email']):
@@ -31,5 +31,24 @@ def register(request):
             company=request.POST['company']
         )
         request.session['companyid'] = new_corp.id 
-        return redirect('/wishes')
+        return redirect('/employer/jobs')
     return redirect('/')
+
+def jobs(request):
+    if 'companyid' in request.session:
+        context = {
+            'Company': Employer.objects.get(id=request.session['companyid']),
+            #'all_wishes': Wish.objects.all() CHANGE TO JOBS AVAILABLE
+        }
+        return render(request, 'dashboardE.html', context)
+    return redirect("/")
+
+def loginE(request):
+    company = Employer.objects.filter(email=request.POST['email'])
+    if company:
+        logged_user = company[0]
+        if bcrypt.checkpw(request.POST['password'].encode(), logged_user.password.encode()):
+            request.session['companyid'] = logged_user.id
+            return redirect('employer/jobs')
+    messages.error(request, "Email not found in database")
+    return redirect('/employer')

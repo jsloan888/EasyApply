@@ -53,7 +53,7 @@ def login(request):
         logged_user = user[0]
         if bcrypt.checkpw(request.POST['password'].encode(), logged_user.password.encode()):
             request.session['userid'] = logged_user.id
-            return redirect('/userid/jobs')
+            return redirect('/jobs')
     messages.error(request, "Email not found in database")
     return redirect('/')
 
@@ -62,4 +62,3 @@ def profile(request):
         'applicant': Applicant.objects.get(id=request.session['userid']),
     }
     return render(request, 'profile.html', context)
-    

@@ -21,13 +21,12 @@
           </ul>
         </div>
     </nav>
-    <h1>{{applicant.first_name}}'s Profile Page</h1>
-    <!-- Add Image -->
-    <h3>Education</h3>
-    <h3>About You</h3>
-    <h3>Interests</h3>
-    <h3>Skills</h3>
-    <h3>Job Title 1</h3>
-    <h3>Job Title 2</h3>
+    <h1>View your jobs below. Review Applicants Now!</h1>
+    {% if jobs %}
+        {% for job in Jobs %}
+            <!-- Table of Jobs -->
+            <p>Put Jobs Here</p>
+        {% endfor %}
+    {% endif %}
 </body>
 </html>
