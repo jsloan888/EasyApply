@@ -1,0 +1,23 @@
+[33mcommit 3f246ea517bb1dacd9f07bb475ed148b3519176b[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: jsloan888 <jsloan888@pm.me>
+Date:   Wed Jan 20 16:38:56 2021 -0500
+
+    Bootstrap classes and adding most of employer functionality
+
+[33mcommit ed7e45da18d6dc7746a8fa8e757f5fb1f1569391[m
+Author: jsloan888 <jsloan888@pm.me>
+Date:   Wed Jan 20 12:25:13 2021 -0500
+
+    Hide Secret Keys
+
+[33mcommit 19e4ea0ec0a7ab9c5cb6f6e7655a8141f194e9ba[m
+Author: jsloan888 <jsloan888@pm.me>
+Date:   Wed Jan 20 11:24:22 2021 -0500
+
+    Added models for applicants, and employers, as well as registartion
+
+[33mcommit 5dcb0f9a9aa95ea5ffdbc925d32993f6affceb1e[m
+Author: jsloan888 <jsloan888@pm.me>
+Date:   Mon Jan 18 14:59:43 2021 -0500
+
+    First Commit

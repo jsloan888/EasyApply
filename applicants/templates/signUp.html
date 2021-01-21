@@ -21,7 +21,7 @@
     <div>
         <h1>Create an account to instantly apply to Jobs!</h1>
         <h3>Just upload your resume, and EasyApply!</h3>
-        <form action="register" method="POST">
+        <form action="/register" method="POST">
             {% csrf_token %}
             <p>First Name:<input type="text" name="first_name"></p>
             <p>Last Name:<input type="text" name="last_name"></p>

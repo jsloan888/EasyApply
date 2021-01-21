@@ -22,7 +22,7 @@
         <h1>Welcome to EasyApply Employer</h1>
         <h3>Login to See Your Applicants!</h3>
         <a href="/">Looking to apply to jobs? Click here!</a>
-        <form action="/login" method="POST">
+        <form action="/employer/login" method="POST">
             {% csrf_token %}
             <p>Email<input type="text" name="email"></p>
             <p>Password<input type="password" name="password"></p>

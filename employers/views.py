@@ -7,7 +7,7 @@ import bcrypt
 def indexE(request):
     return render(request, "indexE.html")
 
-def SignUp(request):
+def SignUpE(request):
     return render(request, "signUpE.html")
 
 def registerE(request):
@@ -34,7 +34,7 @@ def registerE(request):
         return redirect('/employer/jobs')
     return redirect('/')
 
-def jobs(request):
+def jobsE(request):
     if 'companyid' in request.session:
         context = {
             'Company': Employer.objects.get(id=request.session['companyid']),
@@ -49,6 +49,16 @@ def loginE(request):
         logged_user = company[0]
         if bcrypt.checkpw(request.POST['password'].encode(), logged_user.password.encode()):
             request.session['companyid'] = logged_user.id
-            return redirect('employer/jobs')
+            return redirect('/employer/jobs')
     messages.error(request, "Email not found in database")
     return redirect('/employer')
+
+def profileE(request):
+    context = {
+        'employer': Employer.objects.get(id=request.session['companyid']),
+    }
+    return render(request, 'profileE.html', context)
+
+def logoutE(request):
+    request.session.flush()
+    return redirect("/employer")
