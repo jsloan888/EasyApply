@@ -62,3 +62,6 @@ def profile(request):
         'applicant': Applicant.objects.get(id=request.session['userid']),
     }
     return render(request, 'profile.html', context)
+
+def resources(request):
+    return render(request, "resources.html")   

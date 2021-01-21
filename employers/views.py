@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .models import *
+from .models import Employer, EmployerManager
 import bcrypt
 
 # Create your views here.
@@ -62,3 +62,6 @@ def profileE(request):
 def logoutE(request):
     request.session.flush()
     return redirect("/employer")
+
+def resourcesE(request):
+    return render(request, "resourcesE.html")   
