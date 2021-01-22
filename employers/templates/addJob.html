@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Easy Apply</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="jobs">EasyApply</a>
+          </div>
+          <ul class="nav navbar-nav">
+            <li><a href="/employer/profile">Profile</a></li>
+            <li><a href="/employer/addJob">Add Job</a></li>
+            <li><a href="/employer/logout">Logout</a></li>
+          </ul>
+        </div>
+    </nav>
+    <h1>Create Job Postings</h1>
+    <div>
+      <h5>Create a company account to post jobs, and view applicants!</h5>
+      <form action="/employer/createJob" method="POST">
+          {% csrf_token %}
+          <input type="text" name="title" placeholder="Job Title">
+          <br>
+          <input type="text" name="experience" placeholder="Years of experience">
+          <br>
+          <input type="text" name="skills" placeholder="List 2-5 skills required for the job">
+          <br>
+          <textarea name="description" placeholder="Job Description"></textarea>
+          <!-- How do I make this box bigger? -->
+          <br>
+          <button class="btn btn-primary" type="submit">Post Job</button>
+      </form>
+    </div>
+
+    {% if jobs %}
+      {% for job in jobs %}
+        {% if job.uploaded_by.id == employer.id %}
+          <div>
+            <table data-toggle="table">
+                <thead>
+                <tr class="tableHead">
+                    <th>Job Title</th>
+                    <th>Date added</th>
+                    <th>Actions</th>
+                    </tr>
+                </thead>
+                    <tbody class="tableDetails">
+                    {% for job in all_jobs %}
+                      {% if job.hired == None %}
+                        <p>WORKING SQL COMMANDS</p>
+                        <tr>
+                        <td>{{job.title}}</td>
+                        <td>{{job.created_at}}</td>
+                        <td><a href="">Apply</a> | <a href="">Edit</a></td>
+                      {% endif %}
+                  {% endfor %}
+                </tr>
+            </table>
+          </div>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>

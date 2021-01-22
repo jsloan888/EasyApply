@@ -1,5 +1,6 @@
 from django.db import models
 import re
+from applicants.models import Applicant
 
 # Create your models here.
 class EmployerManager(models.Manager):
@@ -29,3 +30,29 @@ class Employer(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = EmployerManager()
+
+class JobManager(models.Manager):
+    def basic_validator(self, postData):
+        errors = {}
+        if len(postData['title']) < 2:
+            errors['title'] = "Title cannot be blank"
+        if len(postData['experience']) < 2:
+            errors['experience'] = "Experience cannot be blank"
+        if len(postData['skills']) < 2:
+            errors['skills'] = "Skills cannot be blank"
+        if len(postData['description']) < 2:
+            errors['description'] = "Description cannot be blank"
+        
+
+class Job(models.Model):
+    title = models.CharField(max_length=150)
+    experience = models.CharField(max_length=50)
+    skills = models.CharField(max_length=150)
+    description = models.TextField
+    uploaded_by = models.ForeignKey(Employer, related_name="jobs_uploaded", on_delete=models.CASCADE)
+    hired = models.BooleanField(null=True)
+    hiree = models.ManyToManyField(Applicant, related_name="hired_applicant")
+    created_at = models.DateField(auto_now_add=True)
+    updated_at = models.DateField(auto_now=True)
+    hired_on = models.DateField(auto_now=True, null=True)
+    objects = JobManager()

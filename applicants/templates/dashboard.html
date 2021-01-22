@@ -22,10 +22,31 @@
         </div>
     </nav>
     <h1>View your matched jobs below. Apply Now!</h1>
+    <!-- Hopefully below works, but need to add jobs -->
     {% if jobs %}
-        {% for job in Jobs %}
-            <!-- Table of Jobs -->
-            <p>Put Jobs Here</p>
+        {% for job in jobs %}
+        <div>
+          <table data-toggle="table">
+              <thead>
+              <tr class="tableHead">
+                  <th>Item</th>
+                  <th>Date added</th>
+                  <th>Actions</th>
+                  </tr>
+              </thead>
+                  <tbody class="tableDetails">
+                  {% for job in all_jobs %}
+                    {% if job.hired == None %}
+                      <p>WORKING SQL COMMANDS</p>
+                      <tr>
+                      <td>{{job.title}}</td>
+                      <td>{{job.created_at}}</td>
+                      <td><a href="">Apply</a> | <a href="">Edit</a></td>
+                    {% endif %}
+                {% endfor %}
+              </tr>
+          </table>
+        </div>
         {% endfor %}
     {% endif %}
     

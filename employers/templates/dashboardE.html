@@ -15,14 +15,14 @@
             <a class="navbar-brand" href="jobs">EasyApply</a>
           </div>
           <ul class="nav navbar-nav">
-            <li><a href="profile">Profile</a></li>
-            <li><a href="resources">Resources</a></li>
-            <li><a href="logout">Logout</a></li>
+            <li><a href="/employer/profile">Profile</a></li>
+            <li><a href="/employer/addJob">Add Job</a></li>
+            <li><a href="/employer/logout">Logout</a></li>
           </ul>
         </div>
     </nav>
-    <h1>View your jobs below. Review Applicants Now!</h1>
     {% if jobs %}
+      <h1>View your jobs below. Review Applicants Now!</h1>
         {% for job in Jobs %}
             <!-- Table of Jobs -->
             <p>Put Jobs Here</p>
