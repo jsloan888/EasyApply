@@ -6,46 +6,48 @@
     <title>Easy Apply</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <a class="navbar-brand" href="jobs">EasyApply</a>
-          </div>
-          <ul class="nav navbar-nav">
-            <li><a href="profile">Profile</a></li>
-            <li><a href="resources">Resources</a></li>
-            <li><a href="logout">Logout</a></li>
-          </ul>
-        </div>
-    </nav>
+  <nav>
+    <div>
+      <div class="navbar-header">
+        <a class="navbar-brand" href="/jobs">EasyApply</a>
+      </div>
+      <ul class="nav">
+        <li class="nav-item"><a class="nav-link" href="/profile/{{applicant.id}}">Profile</a></li>
+        <li class="nav-item"><a class="nav-link" href="/resources">Resources</a></li>
+        <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+      </ul>
+    </div>
+  </nav>
     <h1>View your matched jobs below. Apply Now!</h1>
 
-    <!-- Below displays all jobs that haven't been hired for, and offers ability to apply to the jobs -->
+    <!-- Below displays all jobs that haven't been posted, and offers ability to apply to the jobs -->
     {% if all_jobs %}
-        {% for job in all_jobs %}
         <div>
-          <table data-toggle="table">
-              <thead>
-                  <tr class="tableHead">
-                      <th>Job Title</th>
-                      <th>Date added</th>
-                      <th>Actions</th>
+          <table class="table table-striped">
+              <thead class="thead-dark">
+                  <tr>
+                      <th scope="col">Job Title</th>
+                      <th scope="col">Date added</th>
+                      <th scope="col">Actions</th>
                   </tr>
               </thead>
+                {% for job in all_jobs %}
                   <tbody class="tableDetails">
                   {% if job.hired == None %}
+                  {% if applicant not in job.applications.all %}
                       <tr>
                           <td>{{job.title}}</td>
                           <td>{{job.created_at}}</td>
-                          <td><a href="/apply">Apply</a></td>
+                          <td><a href="/apply/{{job.id}}">Apply</a></td>
                       </tr>
                   {% endif %}
+                  {% endif %}
+                {% endfor %}
           </table>
         </div>
-        {% endfor %}
     {% endif %}
     
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

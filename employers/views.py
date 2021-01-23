@@ -90,4 +90,27 @@ def addJob(request):
         description=request.POST['desc'],
         uploaded_by=user
     )
-    return redirect ('/employer/addJob')   
+    return redirect ('/employer/addJob')
+
+def editJob(request, jobid):
+    if 'companyid' in request.session:
+        context = {
+            'company': Employer.objects.get(id=request.session['companyid']),
+            'job': Job.objects.get(id=jobid)
+        }
+        return render(request, 'updateJob.html', context)
+    return redirect('/')
+
+def update(request, jobid):
+    errors = Job.objects.job_validator(request.POST)
+    if len(errors) > 0:
+        for key, value in errors.items():
+            messages.error(request, value)
+        return redirect(f'/employer/{jobid}')
+    job = Job.objects.get(id=jobid)
+    job.title = request.POST['title']
+    job.experience = request.POST['experience']
+    job.skills = request.POST['skills']
+    job.description = request.POST['desc']
+    job.save()
+    return redirect('/employer/addJob')

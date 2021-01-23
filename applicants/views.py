@@ -58,14 +58,34 @@ def login(request):
     messages.error(request, "Email not found in database")
     return redirect('/')
 
-def profile(request):
-    context = {
-        'applicant': Applicant.objects.get(id=request.session['userid']),
-    }
+def profile(request, applicantid):
+    if 'userid' in request.session:
+        context = {
+            'applicant': Applicant.objects.get(id=applicantid),
+        }
     return render(request, 'profile.html', context)
 
 def resources(request):
-    return render(request, "resources.html")
+    if 'userid' in request.session:
+        context = {
+            'applicant': Applicant.objects.get(id=request.session['userid']),
+            'all_jobs': Job.objects.all()
+        }
+        return render(request, 'resources.html', context)
+    return redirect('/')
 
-def apply(request):
-    return render(request, 'apply.html')
+def apply(request, jobid):
+    if 'userid' in request.session:
+        context = {
+            'user': Applicant.objects.get(id=request.session['userid']),
+            'job': Job.objects.get(id=jobid)
+        }
+        return render(request, 'apply.html', context)
+    return redirect('/')
+
+def submit(request, jobid):
+    user = Applicant.objects.get(id=request.session['userid'])
+    posting = Job.objects.get(id=jobid)
+    posting.applications.add(user)
+    posting.save()
+    return redirect('/jobs')

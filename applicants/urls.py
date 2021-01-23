@@ -7,8 +7,9 @@ urlpatterns = [
     path('register', views.register),
     path('login', views.login),
     path('jobs', views.jobs),
-    path('profile', views.profile),
+    path('profile/<int:applicantid>', views.profile),
     path('logout', views.logout),
     path('resources', views.resources),
-    path('apply', views.apply)
+    path('apply/<int:jobid>', views.apply),
+    path('apply/<int:jobid>/submit', views.submit)
 ]

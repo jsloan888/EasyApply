@@ -52,8 +52,10 @@ class Job(models.Model):
     description = models.TextField()
     uploaded_by = models.ForeignKey(Employer, related_name="jobs_uploaded", on_delete=models.CASCADE)
     hired = models.BooleanField(null=True)
+    applications = models.ManyToManyField(Applicant, related_name="job_applicants")
     hiree = models.ForeignKey(Applicant, related_name="hired_applicant", null=True, on_delete=models.CASCADE)
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)
     hired_on = models.DateField(auto_now=True, null=True)
     objects = JobManager()
+

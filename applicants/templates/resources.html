@@ -6,24 +6,35 @@
     <title>Easy Apply</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <a class="navbar-brand" href="jobs">EasyApply</a>
-          </div>
-          <ul class="nav navbar-nav">
-            <li><a href="profile">Profile</a></li>
-            <li><a href="resources">Resources</a></li>
-            <li><a href="logout">Logout</a></li>
-          </ul>
-        </div>
-    </nav>
+  <nav>
+    <div>
+      <div class="navbar-header">
+        <a class="navbar-brand" href="/jobs">EasyApply</a>
+      </div>
+      <ul class="nav">
+        <li class="nav-item"><a class="nav-link" href="/profile/{{applicant.id}}">Profile</a></li>
+        <li class="nav-item"><a class="nav-link disabled" href="/resources">Resources</a></li>
+        <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+      </ul>
+    </div>
+  </nav>
     <h1></h1>
     <h2>Resume Tools</h2>
+    <ul class="list-group">
+      <li class="list-group-item"><a href="https://www.reddit.com/r/EngineeringStudents/comments/2pvcmy/guide_to_resume_writing_with_examples/">Resume Tips for Engineering Students</a></li>
+      <li class="list-group-item"><a href="https://www.indeed.com/career-advice/resumes-cover-letters/10-resume-writing-tips">10 Resume Writing Tips from Indeed</a></li>
+      <li class="list-group-item"><a href="https://templates.office.com/en-us/resume-templates">Microsoft Resume Templates</a></li>
+      <li class="list-group-item"><a href=""></a></li>
+    </ul>
     <h2>Algorithim Practice Tools</h2>
+    <ul class="list-group">
+      <li class="list-group-item"><a href="https://github.com/jwasham/coding-interview-university">Github Repo of Interview Practice</a></li>
+      <li class="list-group-item"><a href="https://www.reddit.com/r/cscareerquestions/comments/3cf69k/how_to_prepare_for_coding_interviews_interactive/">Interactive Coding Challenges</a></li>
+      <li class="list-group-item"><a href="https://www.geeksforgeeks.org/algorithm-practice-question-beginners-set-1/">Basic Algo Questions</a></li>
+    </ul>
     <h2></h2>
     
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

@@ -6,24 +6,33 @@
     <title>Easy Apply</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <a class="navbar-brand" href="jobs">EasyApply</a>
-          </div>
-          <ul class="nav navbar-nav">
-            <li><a href="/employer/profile">Profile</a></li>
-            <li><a href="/employer/addJob">Add Job</a></li>
-            <li><a href="/employer/logout">Logout</a></li>
-          </ul>
+  <nav>
+    <div>
+        <div class="navbar-header">
+        <a class="navbar-brand" href="jobs">EasyApply</a>
         </div>
-    </nav>
+        <ul class="nav">
+        <li class ="nav-item"><a class="nav-link" href="/employer/profile">Profile</a></li>
+        <li class ="nav-item"><a class="nav-link disabled" href="/employer/addJob">Add Job</a></li>
+        <li class ="nav-item"><a class="nav-link" href="/employer/logout">Logout</a></li>
+        </ul>
+    </div>
+  </nav>
+      {% if messages %}
+        <div class="alert alert-danger">
+            <ul class="messages">    
+                {% for message in messages %}    
+                    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
+                {% endfor %}
+            </ul>
+        </div>
+      {% endif %}
     <h1>Create Job Postings</h1>
     <div>
-      <h5>Create a company account to post jobs, and view applicants!</h5>
+      <h5>Post jobs, and view applicants!</h5>
       <form action="/employer/createJob" method="POST">
           {% csrf_token %}
           <input type="text" name="title" placeholder="Job Title">
@@ -32,37 +41,36 @@
           <br>
           <input type="text" name="skills" placeholder="List 2-5 skills required for the job">
           <br>
-          <textarea type="text" name="desc" placeholder="Job Description"></textarea>
-          <!-- How do I make this box bigger? -->
+          <textarea type="text" name="desc" placeholder="Job Description" rows="5" cols="40"></textarea>
           <br>
           <button class="btn btn-primary" type="submit">Post Job</button>
       </form>
     </div>
 
     {% if all_jobs %}
-      {% for job in all_jobs %}
-        {% if employer.id == job.uploaded_by.id %}
-          <div>
-            <table data-toggle="table">
-                <thead>
-                    <tr class="tableHead">
-                        <th>Job Title</th>
-                        <th>Date added</th>
-                        <th>Actions</th>
+      <div>
+        <table class="table table-striped">
+            <thead>
+                <tr class="tableHead">
+                    <th scope="col">Job Title</th>
+                    <th scope="col">Date added</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            {% for job in all_jobs %}
+            {% if employer.id == job.uploaded_by.id %}
+                <tbody class="tableDetails">
+                {% if job.hired == None %}
+                    <tr>
+                        <td>{{job.title}}</td>
+                        <td>{{job.created_at}}</td>
+                        <td><a href="/employer/{{job.id}}">Edit</a></td>
                     </tr>
-                </thead>
-                    <tbody class="tableDetails">
-                    {% if job.hired == None %}
-                        <tr>
-                            <td>{{job.title}}</td>
-                            <td>{{job.created_at}}</td>
-                            <td><a href="">Edit</a></td>
-                        </tr>
-                    {% endif %}
-            </table>
-          </div>
-        {% endif %}
-      {% endfor %}
+                {% endif %}
+            {% endif %}
+            {% endfor %}
+        </table>
+      </div>
     {% endif %}
     
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
