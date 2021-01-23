@@ -2,12 +2,13 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import Applicant, ApplicantManager
 import bcrypt
+from employers.models import Employer, EmployerManager, Job, JobManager
 
 # Create your views here.
 def index(request):
     return render(request, "index.html")
 
-def SignUp(request):
+def signup(request):
     return render(request, "signUp.html")
 
 # Update to Employer/Applicant, not user
@@ -38,7 +39,7 @@ def jobs(request):
     if 'userid' in request.session:
         context = {
             'applicant': Applicant.objects.get(id=request.session['userid']),
-            #'all_wishes': Wish.objects.all() CHANGE TO JOBS AVAILABLE
+            'all_jobs': Job.objects.all()
         }
         return render(request, 'dashboard.html', context)
     return redirect("/")
@@ -64,4 +65,7 @@ def profile(request):
     return render(request, 'profile.html', context)
 
 def resources(request):
-    return render(request, "resources.html")   
+    return render(request, "resources.html")
+
+def apply(request):
+    return render(request, 'apply.html')

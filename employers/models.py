@@ -32,26 +32,27 @@ class Employer(models.Model):
     objects = EmployerManager()
 
 class JobManager(models.Manager):
-    def basic_validator(self, postData):
+    def job_validator(self, postData):
         errors = {}
         if len(postData['title']) < 2:
-            errors['title'] = "Title cannot be blank"
-        if len(postData['experience']) < 2:
-            errors['experience'] = "Experience cannot be blank"
+            errors['title'] = "Title cannot be blank."
+        if len(postData['experience']) < 1:
+            errors['experience'] = "Experience cannot be blank."
         if len(postData['skills']) < 2:
-            errors['skills'] = "Skills cannot be blank"
-        if len(postData['description']) < 2:
-            errors['description'] = "Description cannot be blank"
+            errors['skills'] = "Skills cannot be blank."
+        if len(postData['desc']) < 2:
+            errors['desc'] = "Description cannot be blank."
+        return errors
         
 
 class Job(models.Model):
     title = models.CharField(max_length=150)
     experience = models.CharField(max_length=50)
     skills = models.CharField(max_length=150)
-    description = models.TextField
+    description = models.TextField()
     uploaded_by = models.ForeignKey(Employer, related_name="jobs_uploaded", on_delete=models.CASCADE)
     hired = models.BooleanField(null=True)
-    hiree = models.ManyToManyField(Applicant, related_name="hired_applicant")
+    hiree = models.ForeignKey(Applicant, related_name="hired_applicant", null=True, on_delete=models.CASCADE)
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)
     hired_on = models.DateField(auto_now=True, null=True)

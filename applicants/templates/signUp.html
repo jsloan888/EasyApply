@@ -19,8 +19,7 @@
         </div>
     {% endif %}
     <div> 
-        <h1>Create an account to instantly apply to Jobs!</h1>
-        <h3>Just upload your resume, and EasyApply!</h3>
+        <h5>Create an account to instantly apply to Jobs!</h5>
         <form action="/register" method="POST">
             {% csrf_token %}
             <input type="text" name="first_name" placeholder="First Name">

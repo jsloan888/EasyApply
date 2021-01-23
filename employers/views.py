@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import Employer, EmployerManager, Job, JobManager
 import bcrypt
-from applicants.models import Applicant
+from applicants.models import Applicant, ApplicantManager
 
 # Create your views here.
 def indexE(request):
@@ -16,11 +16,11 @@ def registerE(request):
         errors = Employer.objects.basic_validator(request.POST)
     if Employer.objects.filter(email = request.POST['email']):
         messages.error(request, "Email is already registered and can be used to login.")
-        return redirect('/')
+        return redirect('/employer/signup')
     if len(errors) > 0:
         for key, value in errors.items():
             messages.error(request, value)
-        return redirect('/')
+        return redirect('/employer/signup')
     else:
         password = request.POST['password']
         pw_hash = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
@@ -33,7 +33,7 @@ def registerE(request):
         )
         request.session['companyid'] = new_corp.id 
         return redirect('/employer/jobs')
-    return redirect('/')
+    return redirect('/employer/signup')
 
 def jobsE(request):
     if 'companyid' in request.session:
@@ -55,33 +55,39 @@ def loginE(request):
     return redirect('/employer')
 
 def profileE(request):
-    context = {
-        'employer': Employer.objects.get(id=request.session['companyid']),
-    }
-    return render(request, 'profileE.html', context)
+    if 'companyid' in request.session:
+        context = {
+            'employer': Employer.objects.get(id=request.session['companyid']),
+            'all_jobs': Job.objects.all()
+        }
+        return render(request, 'profileE.html', context)
+    return redirect('/')
 
 def logoutE(request):
     request.session.flush()
     return redirect("/employer")
 
 def newJob(request):
-    context = {
-        'employer': Employer.objects.get(id=request.session['companyid']),
-    }
-    return render(request, 'addJob.html', context)
+    if 'companyid' in request.session:
+        context = {
+            'employer': Employer.objects.get(id=request.session['companyid']),
+            'all_jobs': Job.objects.all()
+        }
+        return render(request, 'addJob.html', context)
+    return redirect('/')
 
 def addJob(request):
-    errors = Job.objects.basic_validator(request.POST)
+    errors = Job.objects.job_validator(request.POST)
     if len(errors) > 0:
         for key, value in errors.items():
             messages.error(request, value)
         return redirect('/employer/addJob')
-    user = Employer.objects.get(id=request.session['employerid'])
+    user = Employer.objects.get(id=request.session['companyid'])
     job = Job.objects.create(
         title=request.POST['title'],
         experience=request.POST['experience'],
         skills=request.POST['skills'],
-        description=request.POST['description'],
+        description=request.POST['desc'],
         uploaded_by=user
     )
     return redirect ('/employer/addJob')   
