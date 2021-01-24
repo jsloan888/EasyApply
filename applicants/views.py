@@ -3,6 +3,8 @@ from django.contrib import messages
 from .models import Applicant, ApplicantManager, Profile
 import bcrypt
 from employers.models import Employer, EmployerManager, Job, JobManager
+from django.core.files import File
+from .forms import Profile2
 
 # Create your views here.
 def index(request):
@@ -94,17 +96,15 @@ def submit(request, jobid):
 
 
 def editProfile(request, applicantid):
-    if 'userid' in request.session:
-        user = request.session['userid']
-        profile = Profile.objects.create(
-            applicant=user,
-            resume=request.POST['res']
-        )
-        context = {
-           'applicant': Applicant.objects.get(id=request.session['userid']),
-            'user_profile': profile 
-        }
-        return redirect(f'/profile/{applicantid}', context)
+    user = request.session['userid']
+    if request.method == "POST":
+        form = Profile2(request.POST, request.FILES)
+        if form.is_valid():
+            profile = Profile.objects.create(
+                applicant=user,
+                resume=request.FILES['res']
+            )
+        return redirect(f'/profile/{applicantid}')
     return redirect('/')
 
 def withdraw(request, jobid):

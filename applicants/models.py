@@ -31,4 +31,4 @@ class Applicant(models.Model):
 
 class Profile(models.Model):
     applicant = models.ForeignKey(Applicant, related_name="user_profile", on_delete=models.CASCADE)
-    resume = models.FileField(upload_to='documents/')
+    resume = models.FileField(upload_to='resumes')

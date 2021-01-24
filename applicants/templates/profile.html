@@ -24,10 +24,10 @@
     <h1>{{applicant.first_name}}'s Profile Page</h1>
     <!-- Add Image -->
     <div>
-      {% if profile %}
+      {% if all_profiles %}
       {% for profile in all_profiles %}
       {% if profile.applicant.id == applicant.id %}
-          <p>{{Profile.resume}}</p>
+          <p>SQL WORKING</p>
       {% endif %}
       {% endfor %}
       {% endif %}
