@@ -23,12 +23,23 @@
   </nav>
     <h1>{{applicant.first_name}}'s Profile Page</h1>
     <!-- Add Image -->
-    <h3>Education</h3>
-    <h3>About You</h3>
-    <h3>Interests</h3>
-    <h3>Skills</h3>
-    <h3>Job Title 1</h3>
-    <h3>Job Title 2</h3>
+    <div>
+      {% if profile %}
+      {% for profile in all_profiles %}
+      {% if profile.applicant.id == applicant.id %}
+          <p>{{Profile.resume}}</p>
+      {% endif %}
+      {% endfor %}
+      {% endif %}
+    </div>
+    <div class="subhead">
+      <form action="/profile/{{applicant.id}}/edit" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="file">Upload your Resume Here: </label>
+        <input type="file" name="res">
+        <button class="btn btn-primary" type="submit">Upload</button>
+      </form>
+    </div>
     
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

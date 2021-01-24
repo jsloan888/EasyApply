@@ -36,7 +36,8 @@
               {% for applicant in job.applications.all %}
               <td>{{job.title}}</td>
               <td>{{applicant.first_name}} {{applicant.last_name}}</td>
-              <td><a href='/profile/{user.id}'>{{applicant.email}}</a></td>
+              <td><a href=''>{{applicant.email}}</a></td>
+              <!-- Resume Goes Here not profile -->
               {% endfor %}
             </tr>
             {% endfor %}

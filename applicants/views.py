@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .models import Applicant, ApplicantManager
+from .models import Applicant, ApplicantManager, Profile
 import bcrypt
 from employers.models import Employer, EmployerManager, Job, JobManager
 
@@ -11,7 +11,6 @@ def index(request):
 def signup(request):
     return render(request, "signUp.html")
 
-# Update to Employer/Applicant, not user
 def register(request):
     if request.method == "POST":
         errors = Applicant.objects.basic_validator(request.POST)
@@ -62,8 +61,11 @@ def profile(request, applicantid):
     if 'userid' in request.session:
         context = {
             'applicant': Applicant.objects.get(id=applicantid),
+            'all_profiles': Profile.objects.all()
         }
-    return render(request, 'profile.html', context)
+        return render(request, 'profile.html', context)
+    else:
+        redirect('/')
 
 def resources(request):
     if 'userid' in request.session:
@@ -87,5 +89,27 @@ def submit(request, jobid):
     user = Applicant.objects.get(id=request.session['userid'])
     posting = Job.objects.get(id=jobid)
     posting.applications.add(user)
+    posting.save()
+    return redirect('/jobs')
+
+
+def editProfile(request, applicantid):
+    if 'userid' in request.session:
+        user = request.session['userid']
+        profile = Profile.objects.create(
+            applicant=user,
+            resume=request.POST['res']
+        )
+        context = {
+           'applicant': Applicant.objects.get(id=request.session['userid']),
+            'user_profile': profile 
+        }
+        return redirect(f'/profile/{applicantid}', context)
+    return redirect('/')
+
+def withdraw(request, jobid):
+    user = Applicant.objects.get(id=request.session['userid'])
+    posting = Job.objects.get(id=jobid)
+    posting.applications.remove(user)
     posting.save()
     return redirect('/jobs')

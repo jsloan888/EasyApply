@@ -28,3 +28,7 @@ class Applicant(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = ApplicantManager()
+
+class Profile(models.Model):
+    applicant = models.ForeignKey(Applicant, related_name="user_profile", on_delete=models.CASCADE)
+    resume = models.FileField(upload_to='documents/')

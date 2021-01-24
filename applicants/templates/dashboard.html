@@ -29,6 +29,7 @@
           <table class="table table-striped">
               <thead class="thead-dark">
                   <tr>
+                      <th scope="col">Company</th>
                       <th scope="col">Job Title</th>
                       <th scope="col">Date added</th>
                       <th scope="col">Actions</th>
@@ -39,6 +40,7 @@
                   {% if job.hired == None %}
                   {% if applicant not in job.applications.all %}
                       <tr>
+                          <td>{{job.uploaded_by.company}}</td>
                           <td>{{job.title}}</td>
                           <td>{{job.created_at}}</td>
                           <td><a href="/apply/{{job.id}}">Apply</a></td>
@@ -49,7 +51,34 @@
           </table>
         </div>
     {% endif %}
-    
+    <h5>Applied Jobs</h5>
+    {% if all_jobs %}
+        <div>
+          <table class="table table-striped">
+              <thead class="thead-dark">
+                  <tr>
+                      <th scope="col">Company</th>
+                      <th scope="col">Job Title</th>
+                      <th scope="col">Date added</th>
+                      <th scope="col">Actions</th>
+                  </tr>
+              </thead>
+                {% for job in all_jobs %}
+                  <tbody class="tableDetails">
+                  {% if job.hired == None %}
+                  {% if applicant in job.applications.all %}
+                      <tr>
+                          <td>{{job.uploaded_by.company}}</td>
+                          <td>{{job.title}}</td>
+                          <td>{{job.created_at}}</td>
+                          <td><a href="/withdraw/{{job.id}}">Withdraw Application</a></td>
+                      </tr>
+                  {% endif %}
+                  {% endif %}
+                {% endfor %}
+          </table>
+        </div>
+    {% endif %}    
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>

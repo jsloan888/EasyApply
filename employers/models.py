@@ -56,6 +56,5 @@ class Job(models.Model):
     hiree = models.ForeignKey(Applicant, related_name="hired_applicant", null=True, on_delete=models.CASCADE)
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)
-    hired_on = models.DateField(auto_now=True, null=True)
+    hired_on = models.DateField(auto_now=True, blank=True)
     objects = JobManager()
-
