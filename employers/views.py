@@ -131,17 +131,19 @@ def profUpdate(request):
         return redirect('/')
 
 def hire(request, jobid, applicantid):
-    hired_job = Job.objects.get(id=jobid)
-    hired_job.hired = True
-    hired_applicant = Applicant.objects.get(id=applicantid)
-    hired_job.hiree.add(hired_applicant)
-    hired_job.save()
+    if 'companyid' in request.session:
+        hired_job = Job.objects.get(id=jobid)
+        hired_applicant = Applicant.objects.get(id=applicantid)
+        hired_job.hired = True
+        hired_job.hiree.add(hired_applicant)
+        hired_job.save()
     return redirect('/employer/jobs')
 
 def unhire(request, jobid, applicantid):
-    hired_job = Job.objects.get(id=jobid)
-    hired_job.hired = False
-    unhired_applicant = Applicant.objects.get(id=applicantid)
-    hired_job.hiree.add(unhired_applicant)
-    hired_job.save()
+    if 'companyid' in request.session:
+        hired_job = Job.objects.get(id=jobid)
+        unhired_applicant = Applicant.objects.get(id=applicantid)
+        hired_job.hired = False
+        hired_job.hiree.remove(unhired_applicant)
+        hired_job.save()
     return redirect('/employer/jobs')
