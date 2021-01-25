@@ -2,9 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import Applicant, ApplicantManager, Profile
 import bcrypt
-from employers.models import Employer, EmployerManager, Job, JobManager
-from django.core.files import File
-from .forms import Profile2
+from employers.models import Employer, EmployerManager, Job, JobManager, CompanyProfile
 
 # Create your views here.
 def index(request):
@@ -66,8 +64,12 @@ def profile(request, applicantid):
             'all_profiles': Profile.objects.all()
         }
         return render(request, 'profile.html', context)
-    else:
-        redirect('/')
+    else :
+        context = {
+            'applicant': Applicant.objects.get(id=applicantid),
+            'all_profiles': Profile.objects.all()
+        }
+        return render(request, 'profile.html', context)
 
 def resources(request):
     if 'userid' in request.session:
@@ -82,7 +84,8 @@ def apply(request, jobid):
     if 'userid' in request.session:
         context = {
             'user': Applicant.objects.get(id=request.session['userid']),
-            'job': Job.objects.get(id=jobid)
+            'job': Job.objects.get(id=jobid),
+            'company_profile': CompanyProfile.objects.all()
         }
         return render(request, 'apply.html', context)
     return redirect('/')
@@ -96,14 +99,14 @@ def submit(request, jobid):
 
 
 def editProfile(request, applicantid):
-    user = request.session['userid']
+    user = Applicant.objects.get(id=applicantid)
     if request.method == "POST":
-        form = Profile2(request.POST, request.FILES)
-        if form.is_valid():
-            profile = Profile.objects.create(
-                applicant=user,
-                resume=request.FILES['res']
-            )
+        profile = Profile.objects.create(
+            applicant=user,
+            skills=request.POST['skills'],
+            prev_job=request.POST['prev_job'],
+            prev_company=request.POST['prev_company'],
+        )
         return redirect(f'/profile/{applicantid}')
     return redirect('/')
 

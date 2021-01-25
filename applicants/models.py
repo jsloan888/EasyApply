@@ -31,4 +31,6 @@ class Applicant(models.Model):
 
 class Profile(models.Model):
     applicant = models.ForeignKey(Applicant, related_name="user_profile", on_delete=models.CASCADE)
-    resume = models.FileField(upload_to='resumes')
+    skills = models.CharField(max_length=250)
+    prev_job = models.CharField(max_length=50)
+    prev_company = models.CharField(max_length=50)

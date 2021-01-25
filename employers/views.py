@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .models import Employer, EmployerManager, Job, JobManager
+from .models import Employer, EmployerManager, Job, JobManager, CompanyProfile
 import bcrypt
 from applicants.models import Applicant, ApplicantManager
 
@@ -38,7 +38,7 @@ def registerE(request):
 def jobsE(request):
     if 'companyid' in request.session:
         context = {
-            'Company': Employer.objects.get(id=request.session['companyid']),
+            'company': Employer.objects.get(id=request.session['companyid']),
             'all_jobs': Job.objects.all()
         }
         return render(request, 'dashboardE.html', context)
@@ -58,7 +58,8 @@ def profileE(request):
     if 'companyid' in request.session:
         context = {
             'employer': Employer.objects.get(id=request.session['companyid']),
-            'all_jobs': Job.objects.all()
+            'all_jobs': Job.objects.all(),
+            'company_profiles': CompanyProfile.objects.all()
         }
         return render(request, 'profileE.html', context)
     return redirect('/')
@@ -114,3 +115,16 @@ def update(request, jobid):
     job.description = request.POST['desc']
     job.save()
     return redirect('/employer/addJob')
+
+def profUpdate(request):
+    if 'companyid' in request.session:
+        user=Employer.objects.get(id=request.session['companyid'])
+        profile = CompanyProfile.objects.create(
+            company=user,
+            employee_count=request.POST['employees'],
+            corp_hq=request.POST['headquarters'],
+            description=request.POST['description']
+        )
+        return redirect ('/employer/profile')    
+    else:
+        return redirect('/')

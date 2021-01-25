@@ -10,7 +10,7 @@
 </head>
 <body>
     <nav>
-        <div id="nav">
+        <div  class="nav-styling">
           <div class="navbar-header">
             <a class="navbar-brand" href="/jobs">EasyApply</a>
           </div>
@@ -32,14 +32,23 @@
     {% endif %}
     <div>
         <h1>Let's Apply to be {{job.title}} of {{job.uploaded_by.company}}</h1>
-        <label>Experience Required(Years):</label>
-        <p>{{job.experience}}</p>
-        <label>Skills Required:</label>
-        <p>{{job.skills}}</p>
-        <label>Description:</label>
-        <p>{{job.description}}</p>
-    
-        <div>
+        {% if company_profile %}
+        {% for profile in company_profile %}
+        <div class="company-profile">
+            <p>#{{profile.employee_count}} Employees | Located in {{profile.corp_hq}}</p>
+            <p>{{profile.description}}</p>
+        </div>
+        {% endfor %}
+        {% endif %}
+        <div class="job-requirements">
+            <label>Experience Required(Years):</label>
+            <p>{{job.experience}}</p>
+            <label>Skills Required:</label>
+            <p>{{job.skills}}</p>
+            <label>Description:</label>
+            <p>{{job.description}}</p>
+        </div>
+        <div class="form-submission">
             <form action='/apply/{{job.id}}/submit' method='POST'>
                 {% csrf_token %}
                 <label>Submit your profile to recruiter?</label>

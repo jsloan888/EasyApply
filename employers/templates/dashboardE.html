@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
-  <nav>
-    <div>
+  <nav class="navbar navbar-dark bg-dark">
+    <div >
         <div class="navbar-header">
         <a class="navbar-brand" href="jobs">EasyApply</a>
         </div>
@@ -32,12 +32,13 @@
           </thead>
           <tbody>
             {% for job in all_jobs %}
+            {% for applicant in job.applications.all %}
+            {% if job.uploaded_by.id == company.id %}
             <tr>
-              {% for applicant in job.applications.all %}
               <td>{{job.title}}</td>
               <td>{{applicant.first_name}} {{applicant.last_name}}</td>
-              <td><a href=''>{{applicant.email}}</a></td>
-              <!-- Resume Goes Here not profile -->
+              <td><a href='/profile/{{applicant.id}}'>{{applicant.email}}</a></td>
+              {% endif %}
               {% endfor %}
             </tr>
             {% endfor %}

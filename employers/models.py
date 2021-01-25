@@ -58,3 +58,9 @@ class Job(models.Model):
     updated_at = models.DateField(auto_now=True)
     hired_on = models.DateField(auto_now=True, blank=True)
     objects = JobManager()
+
+class CompanyProfile(models.Model):
+    company = models.ForeignKey(Employer, related_name="company_profile", on_delete=models.CASCADE)
+    employee_count = models.IntegerField()
+    corp_hq = models.CharField(max_length=150)
+    description = models.CharField(max_length=250)

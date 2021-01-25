@@ -10,7 +10,7 @@
 </head>
 <body>
   <nav>
-    <div>
+    <div class="nav-styling">
       <div class="navbar-header">
         <a class="navbar-brand" href="/jobs">EasyApply</a>
       </div>
@@ -27,7 +27,11 @@
       {% if all_profiles %}
       {% for profile in all_profiles %}
       {% if profile.applicant.id == applicant.id %}
-          <p>SQL WORKING</p>
+        <div class="user-profile">
+          <label>Skills:<p>{{profile.skills}}</p></label>
+          <label>Previous Job:<p>{{profile.prev_job}}</p></label>
+          <label>Previous Company:<p>{{profile.prev_company}}</p></label>  
+        </div>
       {% endif %}
       {% endfor %}
       {% endif %}
@@ -35,9 +39,13 @@
     <div class="subhead">
       <form action="/profile/{{applicant.id}}/edit" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        <label for="file">Upload your Resume Here: </label>
-        <input type="file" name="res">
-        <button class="btn btn-primary" type="submit">Upload</button>
+        <label for="type">Skills:</label>
+        <input type="text" name="skills">
+        <label for="type">Previous Job:</label>
+        <input type="text" name="prev_job">
+        <label for="type">Previous Company:</label>
+        <input type="text" name="prev_company">
+        <button class="btn btn-primary" type="submit">Submit</button>
       </form>
     </div>
     
