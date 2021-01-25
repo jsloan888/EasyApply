@@ -130,20 +130,26 @@ def profUpdate(request):
     else:
         return redirect('/')
 
+def profUpdte(request, companyprofileid):
+    comp_profile = CompanyProfile.objects.get(id=companyprofileid)
+    comp_profile.employee_count = request.POST['employees']
+    comp_profile.corp_hq = request.POST['headquarters']
+    comp_profile.description = request.POST['description']
+    comp_profile.save()
+    return redirect('/employer/profile')
+
 def hire(request, jobid, applicantid):
     if 'companyid' in request.session:
         hired_job = Job.objects.get(id=jobid)
         hired_applicant = Applicant.objects.get(id=applicantid)
         hired_job.hired = True
-        hired_job.hiree.add(hired_applicant)
+        hired_job.hiree = hired_applicant
         hired_job.save()
     return redirect('/employer/jobs')
 
 def unhire(request, jobid, applicantid):
     if 'companyid' in request.session:
         hired_job = Job.objects.get(id=jobid)
-        unhired_applicant = Applicant.objects.get(id=applicantid)
         hired_job.hired = False
-        hired_job.hiree.remove(unhired_applicant)
         hired_job.save()
     return redirect('/employer/jobs')

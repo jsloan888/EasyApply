@@ -34,10 +34,12 @@
         <h1>Let's Apply to be {{job.title}} of {{job.uploaded_by.company}}</h1>
         {% if company_profile %}
         {% for profile in company_profile %}
+        {% if profile.company.id == job.uploaded_by.id %}
         <div class="company-profile">
             <p>#{{profile.employee_count}} Employees | Located in {{profile.corp_hq}}</p>
             <p>{{profile.description}}</p>
         </div>
+        {% endif %}
         {% endfor %}
         {% endif %}
         <div class="job-requirements">

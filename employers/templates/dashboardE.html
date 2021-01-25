@@ -69,18 +69,18 @@
           <tbody>
             {% for job in all_jobs %}
             {% for applicant in job.applications.all %}
-            {% for profile in all_profiles %}
             {% if job.uploaded_by.id == company.id %}
+            {% if job.hiree.id == applicant.id %}
             {% if job.hired == True %}
             <tr>
               <td>{{job.title}}</td>
               <td>{{job.hiree.first_name}} {{job.hiree.last_name}}</td>
               <td>{{applicant.email}}</td>
               <td><a href="/employer/unhire/{{job.id}}/{{applicant.id}}">Unhire</a></td>
-              {% endif %}
-              {% endif %}
-              {% endfor %}
             </tr>
+            {% endif %}
+            {% endif %}
+            {% endif %}
             {% endfor %}
             {% endfor %}
           </tbody>
