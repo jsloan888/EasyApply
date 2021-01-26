@@ -64,12 +64,6 @@ def profile(request, applicantid):
             'all_profiles': Profile.objects.all()
         }
         return render(request, 'profile.html', context)
-    else :
-        context = {
-            'applicant': Applicant.objects.get(id=applicantid),
-            'all_profiles': Profile.objects.all()
-        }
-        return render(request, 'profile.html', context)
 
 def resources(request):
     if 'userid' in request.session:
@@ -109,6 +103,16 @@ def editProfile(request, applicantid):
         )
         return redirect(f'/profile/{applicantid}')
     return redirect('/')
+
+def edtProfile(request, applicantid):
+    profUpdate = {}
+    user = Applicant.objects.get(id=applicantid)
+    profUpdate = Profile.objects.filter(applicant=applicantid)
+    profUpdate.skills = request.POST['skills']
+    profUpdate.prev_job = request.POST['prev_job']
+    profUpdate.prev_company = request.POST['prev_company']
+    profUpdate.save()
+    return redirect(f'/profile/{applicantid}')
 
 def withdraw(request, jobid):
     user = Applicant.objects.get(id=request.session['userid'])

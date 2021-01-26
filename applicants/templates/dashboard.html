@@ -37,7 +37,7 @@
               </thead>
                 {% for job in all_jobs %}
                   <tbody class="tableDetails">
-                  {% if job.hired == None %}
+                  {% if job.hired != True %}
                   {% if applicant not in job.applications.all %}
                       <tr>
                           <td>{{job.uploaded_by.company}}</td>
@@ -65,7 +65,7 @@
               </thead>
                 {% for job in all_jobs %}
                   <tbody class="tableDetails">
-                  {% if job.hired == None %}
+                  {% if job.hired != True %}
                   {% if applicant in job.applications.all %}
                       <tr>
                           <td>{{job.uploaded_by.company}}</td>

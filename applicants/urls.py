@@ -9,6 +9,7 @@ urlpatterns = [
     path('jobs', views.jobs),
     path('profile/<int:applicantid>', views.profile),
     path('profile/<int:applicantid>/edit', views.editProfile),
+    path('profile/<int:applicantid>/update', views.edtProfile),
     path('logout', views.logout),
     path('resources', views.resources),
     path('apply/<int:jobid>', views.apply),

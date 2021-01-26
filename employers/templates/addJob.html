@@ -60,7 +60,7 @@
             {% for job in all_jobs %}
             {% if employer.id == job.uploaded_by.id %}
                 <tbody class="tableDetails">
-                {% if job.hired == None %}
+                {% if job.hired != True %}
                     <tr>
                         <td>{{job.title}}</td>
                         <td>{{job.created_at}}</td>

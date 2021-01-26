@@ -14,7 +14,7 @@ urlpatterns = [
     path('employer/<int:jobid>', views.editJob),
     path('employer/<int:jobid>/editJob', views.update),
     path('employer/update', views.profUpdate),
-    path('employer/updte/<int:companyprofileid>', views.profUpdte),
+    path('employer/update/<int:companyprofileid>', views.profUpdte),
     path('employer/hire/<int:jobid>/<int:applicantid>', views.hire),
     path('employer/unhire/<int:jobid>/<int:applicantid>', views.unhire)
 ]
