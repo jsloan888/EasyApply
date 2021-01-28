@@ -54,7 +54,7 @@ def login(request):
         if bcrypt.checkpw(request.POST['password'].encode(), logged_user.password.encode()):
             request.session['userid'] = logged_user.id
             return redirect('/jobs')
-    messages.error(request, "Email not found in database")
+    messages.error(request, "Please enter valid email and password combination")
     return redirect('/')
 
 def profile(request, applicantid):
