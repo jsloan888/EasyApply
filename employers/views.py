@@ -65,6 +65,16 @@ def profileE(request):
         return render(request, 'profileE.html', context)
     return redirect('/')
 
+def profEdit(request, companyprofileid):
+    if 'companyid' in request.session:
+        context = {
+            'employer': Employer.objects.get(id=companyprofileid),
+            'all_jobs': Job.objects.all(),
+            'company_profile': CompanyProfile.objects.get(id=companyprofileid)
+        }
+        return render(request, 'profileEEdit.html', context)
+    return redirect('/')
+
 def logoutE(request):
     request.session.flush()
     return redirect("/employer")
@@ -117,7 +127,7 @@ def update(request, jobid):
     job.save()
     return redirect('/employer/addJob')
 
-def profUpdate(request):
+def profCreate(request):
     if 'companyid' in request.session:
         user=Employer.objects.get(id=request.session['companyid'])
         profile = CompanyProfile.objects.create(
@@ -130,7 +140,7 @@ def profUpdate(request):
     else:
         return redirect('/')
 
-def profUpdte(request, companyprofileid):
+def profUpdate(request, companyprofileid):
     comp_profile = CompanyProfile.objects.get(id=companyprofileid)
     comp_profile.employee_count = request.POST['employees']
     comp_profile.corp_hq = request.POST['headquarters']

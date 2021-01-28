@@ -31,3 +31,21 @@
     width: 80%;
     padding: 8px;
 }
+.companyProfileSub {
+    font-variant: small-caps;
+    font-size: small;
+    color: grey;
+    padding: 8px;
+    width: 80%;
+}
+.form-submission {
+    background-color: rgb(239, 239, 239);
+}
+.companyProfileDesc {
+    width: 60%;
+    padding: 2px;
+    border: solid rgb(148, 148, 212) 2px;
+}
+.profile-edit {
+    width: 50%;
+}

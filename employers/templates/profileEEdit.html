@@ -21,34 +21,18 @@
         </ul>
     </div>
   </nav>
-  <h1 class="companyProfileTitle">{{employer.company}}'s Profile Page</h1>
-  {% if company_profiles %}
-  {% if profile.company.id == employer.id %}
-    <p class="companyProfileSub">{{profile.employee_count}} | {{profile.corp_hq}}</p>
-    <p class="companyProfileDesc">{{profile.description}}</p>
-    {% if profile.company.id == employer.id %}
-    <a href="/employer/update/{{profile.id}}">Edit Profile</a>
-    {% endif %}
-    <br>
-    <br>
-    <!-- Can't figure out SQL below to hide this -->
-    {% if profile.employee_ == null %}
-    <h5>Create Company Profile Below:</h5>
-      <div class="profile-edit">
-        <form action="/employer/update" method="POST">
-          {% csrf_token %}
-          <label>Number of Employees: </label>
-          <input type="text" name="employees">
-          <label>Corporate HQ Location: </label>
-          <input type="text" name="headquarters">
-          <label>About the Company: </label>
-          <textarea name="description" rows="5" cols="40"></textarea>
-          <button class="btn btn-primary" type="submit">Save Profile</button>
-        </form>
-      </div>
-  {% endif %}
-  {% endif %}
-  {% endfor %}
+  <h1>Edit {{employer.company}}'s Profile Page</h1>
+  {% if company_profile %}
+    <form action="/employer/update/{{companyprofile.id}}" method="POST">
+      {% csrf_token %}
+      <label>Number of Employees: </label>
+      <input type="text" name="employees" placeholder="{{profile.employee_count}}">
+      <label>Corporate HQ Location: </label>
+      <input type="text" name="headquarters" placeholder="{{profile.corp_hq}}">
+      <label>About the Company: </label>
+      <textarea type="text" name="description" rows="5" cols="40">{{profile.description}}</textarea>
+      <button class="btn btn-primary" type="submit">Update Profile</button>
+    </form>
   {% endif %}
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
