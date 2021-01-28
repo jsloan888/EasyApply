@@ -1,22 +1,29 @@
+#wrapper-index {
+    margin: 0px auto;
+    font-family: Arial, Helvetica, sans-serif;
+}
 .company-profile {
     font-variant: small-caps;
     font-size: small;
     color: grey;
     padding: 8px;
-    width: 80%;
+    width: 60%;
 }
 .job-requirements{
     background-color: rgb(241, 241, 241);
     padding: 8px;
-    width: 80%;
+    width: 60%;
     color: darkgray;
 }
 .job-requirements > label {
     color: darkslategray;
 }
+.job-requirements > h5 {
+    color: rgb(97, 97, 97);
+}
 .form-submission {
     background-color: rgb(239, 239, 239);
-    width: 80%;
+    width: 60%;
     padding: 6px;
     display: flex;
     justify-content: space-between;
@@ -26,7 +33,7 @@
     flex-direction: column;
     justify-content: left;
     background-color: rgb(174, 176, 179);
-    color: darkslategray;
+    color: white;
     font-variant: small-caps;
     width: 80%;
     padding: 8px;
@@ -47,5 +54,21 @@
     border: solid rgb(148, 148, 212) 2px;
 }
 .profile-edit {
+    color: white;
     width: 50%;
+    background-color:rgb(174, 176, 179);
+}
+.profile-edit > h5 {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.applicant-greeting {
+    font-family: Arial, Helvetica, sans-serif;
+}
+#hiredTable {
+    color: blue;
+    background-color: gold;
+}
+.hired {
+    color: blue;
+    background-color: gold;
 }

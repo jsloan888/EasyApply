@@ -21,32 +21,24 @@
       </ul>
     </div>
   </nav>
-  <h1 class="applicant-greeting">{{applicant.first_name}}'s Profile Page</h1>
+    <h1 class="applicant-greeting">{{applicant.first_name}}'s Profile Page</h1>
     <!-- Add Image -->
-  {% for profile in all_profiles %}
-  {% if profile.applicant.id == applicant.id %}
-    <div class="user-profile">
-      <label>Skills:<p>{{profile.skills}}</p></label>
-      <label>Previous Job:<p>{{profile.prev_job}}</p></label>
-      <label>Previous Company:<p>{{profile.prev_company}}</p></label>
-      <a href="/profile/{{applicant.id}}/edit">Edit Profile</a>
+    <div class="profile-edit">
+      <h5>Update Your Profile Below</h5>
+      <form action="/profile/{{applicant.id}}/update" method="POST">
+        {% csrf_token %}
+        <label for="type">Previous Job:</label>
+        <input type="text" name="prev_job" value="{{user_profile.prev_job}}">
+        <br>
+        <label for="type">Previous Company:</label>
+        <input type="text" name="prev_company" value="{{user_profile.prev_company}}">
+        <br>
+        <label for="type">Skills:</label>
+        <br>
+        <textarea type="text" name="skills" rows="4" cols="30">{{user_profile.skills}}</textarea>
+        <button class="btn btn-primary" type="submit">Update</button>
+      </form>
     </div>
-  {% endif %}
-  {% if applicant.user_profile == null %}
-      <div class="form-submission">
-        <h5>Create Your Profile Below</h5>
-        <form action="/profile/{{applicant.id}}/create" method="POST"">
-          {% csrf_token %}
-          <textarea type="text" name="skills" rows="4" cols="30"></textarea>
-          <label for="type">Previous Job:</label>
-          <input type="text" name="prev_job">
-          <label for="type">Previous Company:</label>
-          <input type="text" name="prev_company">
-          <button class="btn btn-primary" type="submit">Submit</button>
-        </form>
-      </div>
-    {% endif %}
-    {% endfor %}
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>

@@ -65,6 +65,14 @@ def profile(request, applicantid):
         }
         return render(request, 'profile.html', context)
 
+def editProfile(request, applicantid):
+    if 'userid' in request.session:
+        context = {
+            'applicant': Applicant.objects.get(id=applicantid),
+            'user_profile': Profile.objects.get(id=applicantid)
+        }
+        return render(request, 'profileEdit.html', context)
+
 def resources(request):
     if 'userid' in request.session:
         context = {
@@ -91,8 +99,7 @@ def submit(request, jobid):
     posting.save()
     return redirect('/jobs')
 
-
-def editProfile(request, applicantid):
+def createProfile(request, applicantid):
     user = Applicant.objects.get(id=applicantid)
     if request.method == "POST":
         profile = Profile.objects.create(
@@ -104,10 +111,8 @@ def editProfile(request, applicantid):
         return redirect(f'/profile/{applicantid}')
     return redirect('/')
 
-def edtProfile(request, applicantid):
-    profUpdate = {}
-    user = Applicant.objects.get(id=applicantid)
-    profUpdate = Profile.objects.filter(applicant=applicantid)
+def updateProfile(request, applicantid):
+    profUpdate = Profile.objects.get(id=applicantid)
     profUpdate.skills = request.POST['skills']
     profUpdate.prev_job = request.POST['prev_job']
     profUpdate.prev_company = request.POST['prev_company']

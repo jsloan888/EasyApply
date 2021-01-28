@@ -26,9 +26,7 @@
     <h1 class="companyProfileTitle">{{profile.company.company}}'s Profile Page</h1>
     <p class="companyProfileSub">{{profile.employee_count}} | {{profile.corp_hq}}</p>
     <p class="companyProfileDesc">{{profile.description}}</p>
-    {% if profile.company.id == employer.id %}
     <a href="/employer/update/{{profile.id}}">Edit Profile</a>
-    {% endif %}
     <br>
     <br>
   {% endif %}

@@ -21,7 +21,7 @@
       </ul>
     </div>
   </nav>
-    <h1>Hello {{applicant.first_name}}!</h1>
+    <h1 class="applicant-greeting">Hello {{applicant.first_name}}!</h1>
     <h5>View your matched jobs below. Apply Now!</h5>
     <!-- Below displays all jobs that haven't been posted, and offers ability to apply to the jobs -->
     {% if all_jobs %}
@@ -67,6 +67,34 @@
                   <tbody class="tableDetails">
                   {% if job.hired != True %}
                   {% if applicant in job.applications.all %}
+                      <tr>
+                          <td>{{job.uploaded_by.company}}</td>
+                          <td>{{job.title}}</td>
+                          <td>{{job.created_at}}</td>
+                          <td><a href="/withdraw/{{job.id}}">Withdraw Application</a></td>
+                      </tr>
+                  {% endif %}
+                  {% endif %}
+                {% endfor %}
+          </table>
+        </div>
+    {% endif %}
+    <h5 class="hired">Hired Jobs</h5>
+    {% if all_jobs %}
+        <div id="hiredTable">
+          <table class="table table-striped">
+              <thead class="thead-dark">
+                  <tr>
+                      <th scope="col">Company</th>
+                      <th scope="col">Job Title</th>
+                      <th scope="col">Date Added</th>
+                      <th scope="col">Actions</th>
+                  </tr>
+              </thead>
+                {% for job in all_jobs %}
+                  <tbody class="tableDetails">
+                  {% if job.hired == True %}
+                  {% if job.hiree.id == applicant.id %}
                       <tr>
                           <td>{{job.uploaded_by.company}}</td>
                           <td>{{job.title}}</td>
