@@ -17,8 +17,6 @@ EasyApply is a job application site.
 - Can review job applicants, and their emails on dashboard, and hire them
 - Can withdraw hirings as well
 
-Ultimately the goal is to take this mobile and add in further features, but I'm very happy with the database and sql commands, and the responsiveness. Thanks for cheking it out!
-
 ### Built With:
     Python
     Django
