@@ -1,4 +1,4 @@
-# eApplyFin
+# EasyApply
 
 EasyApply is a job application site.
 
