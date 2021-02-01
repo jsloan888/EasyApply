@@ -1,6 +1,7 @@
 #wrapper-index {
     margin: 0px auto;
     font-family: Arial, Helvetica, sans-serif;
+    aspect-ratio: 16/9;
 }
 .company-profile {
     font-variant: small-caps;
