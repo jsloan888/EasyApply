@@ -32,9 +32,11 @@
       <a href="/profile/{{applicant.id}}/edit">Edit Profile</a>
     </div>
   {% endif %}
+  {% endfor %}
+  <!-- can't determine sql to show below and hide once profile is created -->
   {% if applicant.user_profile == null %}
+    <h5>Create Your Profile Below</h5>
       <div class="form-submission">
-        <h5>Create Your Profile Below</h5>
         <form action="/profile/{{applicant.id}}/create" method="POST"">
           {% csrf_token %}
           <textarea type="text" name="skills" rows="4" cols="30"></textarea>
@@ -46,7 +48,6 @@
         </form>
       </div>
     {% endif %}
-    {% endfor %}
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
